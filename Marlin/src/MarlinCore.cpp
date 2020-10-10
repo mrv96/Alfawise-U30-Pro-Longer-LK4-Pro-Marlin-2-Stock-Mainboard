@@ -297,11 +297,10 @@ bool wait_for_heatup = true;
 		#endif
 		delay(600);
 		status_type = PRINTER_SETUP;
-    //MPLS: da abilitare forse. Lo disabilito perchè in teoria questa cosa è già fatta da idle()
-		// #if ENABLED(POWER_LOSS_RECOVERY)
-    //   recovery.check();
-		// 	//check_print_job_recovery();
-		// #endif
+
+		#if ENABLED(POWER_LOSS_RECOVERY)
+      recovery.check();
+		#endif
 	}
 	void LGT_LCD_startup_settings()
 	{
@@ -320,7 +319,7 @@ bool wait_for_heatup = true;
 				else
 				{
 					return_home = true;
-					check_recovery = false;
+					//check_recovery = false;
 					ENABLE_AXIS_Z();
 					LGT_LCD.LGT_Change_Page(ID_DIALOG_PRINT_RECOVERY);
 				}
@@ -1409,6 +1408,10 @@ void setup() {
 void loop() {
   do {
     
+    #ifdef LGT_MAC
+      LGT_LCD_startup_settings();
+    #endif // LGT_MAC
+    
     idle();
 
     #if ENABLED(SDSUPPORT)
@@ -1416,11 +1419,6 @@ void loop() {
       if (card.flag.abort_sd_printing) abortSDPrinting();
       if (marlin_state == MF_SD_COMPLETE) finishSDPrinting();
     #endif
-
-    //MARIO: to solve PLR issue maybe this should we in another place inside the loop()
-    #ifdef LGT_MAC
-      LGT_LCD_startup_settings();
-    #endif // LGT_MAC
 
     queue.advance();
 

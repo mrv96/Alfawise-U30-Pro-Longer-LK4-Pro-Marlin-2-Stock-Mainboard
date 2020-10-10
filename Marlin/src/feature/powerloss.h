@@ -113,8 +113,13 @@ typedef struct {
     bool allow_cold_extrusion:1;  // M302 P1
   } flag;
 
-  //Job percentdone
-  uint8_t have_percentdone;
+  #ifdef LGT_MAC
+    //Job percentdone
+    uint8_t have_percentdone;
+
+    //Index of the file given by the position on LCD
+    uint8_t fileID;
+  #endif //LGT_MAC
 
   uint8_t valid_foot;
 

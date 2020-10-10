@@ -553,7 +553,12 @@ void PrintJobRecovery::resume() {
   enable(true);
 
   // Resume the SD file from the last position
-  char *fn = info.sd_filename;
+  #ifdef LGT_MAC
+    card.selectFileByIndex(info.fileID);
+    char *fn = card.filename;
+  #else
+    char *fn = info.sd_filename;
+  #endif //LGT_MAC
   extern const char M23_STR[];
   sprintf_P(cmd, M23_STR, fn);
   gcode.process_subcommands_now(cmd);

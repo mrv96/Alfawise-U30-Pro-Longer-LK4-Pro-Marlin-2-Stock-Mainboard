@@ -315,7 +315,7 @@ void LGT_SCR::LGT_SDCard_Status_Update()
 					else
 					{
 						return_home = true;
-						check_recovery = false;
+						//check_recovery = false;
 						ENABLE_AXIS_Z();
 						LGT_LCD.LGT_Change_Page(ID_DIALOG_PRINT_RECOVERY);
 					}
@@ -1035,21 +1035,20 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 		case eBT_PRINT_FILE_OPEN_YES:
 			if (sel_fileid > -1)
 			{
-					card.selectFileByIndex(gcode_id[sel_fileid]);
-					card.openFileRead(card.filename);
-					card.startFileprint();
-					print_job_timer.start();
-					LGT_MAC_Send_Filename(ADDR_TXT_HOME_FILE_NAME, gcode_id[sel_fileid]);
-					delay(5);
-					menu_type = eMENU_PRINT_HOME;
-					LGT_Printer_Data_Updata();
-					status_type = PRINTER_PRINTING;
-					LGT_is_printing = true;
-					LGT_Send_Data_To_Screen(ADDR_VAL_ICON_HIDE, 0);
-					idle();
-					LGT_Change_Page(ID_MENU_PRINT_HOME);
-					fila_type = 0;    //PLA
-					LGT_Save_Recovery_Filename(DW_CMD_VAR_W, DW_FH_1, ADDR_TXT_HOME_FILE_NAME,32);
+				recovery.info.fileID = gcode_id[sel_fileid];
+				card.selectFileByIndex(gcode_id[sel_fileid]);
+				card.openAndPrintFile(card.filename);
+				LGT_MAC_Send_Filename(ADDR_TXT_HOME_FILE_NAME, gcode_id[sel_fileid]);
+				delay(5);
+				menu_type = eMENU_PRINT_HOME;
+				LGT_Printer_Data_Updata();
+				status_type = PRINTER_PRINTING;
+				LGT_is_printing = true;
+				LGT_Send_Data_To_Screen(ADDR_VAL_ICON_HIDE, 0);
+				idle();
+				LGT_Change_Page(ID_MENU_PRINT_HOME);
+				fila_type = 0;    //PLA
+				LGT_Save_Recovery_Filename(DW_CMD_VAR_W, DW_FH_1, ADDR_TXT_HOME_FILE_NAME,32);
 			}
 			break;
 		case eBT_MOVE_DISABLE:
@@ -1198,6 +1197,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			queue.inject_P(PSTR("M2006"));
 			break;
 		case eBT_HOME_RECOVERY_YES:
+			check_recovery = false;
 			LGT_Send_Data_To_Screen(ADDR_VAL_ICON_HIDE, 0);
 			return_home = false;
 			#ifdef U20_Pro
@@ -1214,6 +1214,7 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 		#endif
 			break;
 		case eBT_HOME_RECOVERY_NO:
+			check_recovery = false;
 			total_print_time = total_print_time+recovery.info.print_job_elapsed/60;
 			eeprom_write_dword((uint32_t*)EEPROM_INDEX, total_print_time);
 
