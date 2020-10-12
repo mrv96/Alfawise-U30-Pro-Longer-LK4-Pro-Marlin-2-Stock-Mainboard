@@ -977,7 +977,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 		  runout.reset();
 		  break;
 	  case 2001:	// wait for printing pausing
-		  LGT_Pause_Move();
+		  M125();
 		  LGT_LCD.LGT_Change_Page(ID_MENU_PRINT_HOME_PAUSE);
 		  break;
 	#if defined(U20_Pro) || defined(U30_Pro_AutoBed)
@@ -988,7 +988,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 		  break;
 	#endif // U20_Pro
 	  case 2003:      //save position and filament runout  move
-		  LGT_Pause_Move();
+		  M125();
 		  break;
 	  case 2004:  //load filament
 		  LGT_LCD.LGT_Change_Filament(LOAD_FILA_LEN);

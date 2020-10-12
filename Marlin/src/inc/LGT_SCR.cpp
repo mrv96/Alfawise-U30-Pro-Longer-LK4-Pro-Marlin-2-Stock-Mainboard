@@ -1037,7 +1037,9 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 			{
 				recovery.info.fileID = gcode_id[sel_fileid];
 				card.selectFileByIndex(gcode_id[sel_fileid]);
-				card.openAndPrintFile(card.filename);
+				//card.openAndPrintFile(card.filename); //MARIO: prima c'era questo che funzionava invece delle 2 righe successive
+				card.openFileRead(card.filename);
+				queue.inject_P(PSTR("M24"));
 				LGT_MAC_Send_Filename(ADDR_TXT_HOME_FILE_NAME, gcode_id[sel_fileid]);
 				delay(5);
 				menu_type = eMENU_PRINT_HOME;
@@ -1063,16 +1065,11 @@ void LGT_SCR::LGT_Analysis_DWIN_Screen_Cmd()
 		case eBT_PRINT_HOME_PAUSE:
 			LGT_Change_Page(ID_DIALOG_PRINT_WAIT);
 			status_type = PRINTER_PAUSE;
-			card.pauseSDPrint();
-			print_job_timer.pause();
 			queue.inject_P(PSTR("M2001"));
 			break;
 		case eBT_PRINT_HOME_RESUME:
 				LGT_Change_Page(ID_MENU_PRINT_HOME);
-			    do_blocking_move_to_xy(resume_x_position,resume_y_position,50);
-			    card.startFileprint();
-				print_job_timer.start();
-		        runout.reset();
+			    queue.inject_P(PSTR("M24"));
 				menu_type = eMENU_PRINT_HOME;
 				status_type = PRINTER_PRINTING;
 			break;

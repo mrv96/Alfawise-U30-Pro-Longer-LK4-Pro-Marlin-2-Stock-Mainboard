@@ -93,9 +93,17 @@ void GcodeSuite::M25() {
 
   #if ENABLED(PARK_HEAD_ON_PAUSE)
 
-    M125();
+    #ifdef LGT_MAC
+		  status_type = PRINTER_PAUSE;
+		  queue.inject_P(PSTR("M2003"));
+    #else 
+      M125();
+	  #endif // LGT_MAC
 
   #else
+    #ifdef LGT_MAC
+		  #error PARK_NOZZLE_FEATURE and its sub-defines (e.g. PARK_HEAD_ON_PAUSE) must be enabled!
+	  #endif // LGT_MAC
 
     // Set initial pause flag to prevent more commands from landing in the queue while we try to pause
     #if ENABLED(SDSUPPORT)
@@ -120,11 +128,6 @@ void GcodeSuite::M25() {
     #endif
 
   #endif
-
-  #ifdef LGT_MAC
-		  status_type = PRINTER_PAUSE;
-		  queue.inject_P(PSTR("M2003"));
-	#endif // LGT_MAC
 }
 
 #endif // SDSUPPORT

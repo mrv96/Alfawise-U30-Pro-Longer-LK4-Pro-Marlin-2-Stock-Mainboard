@@ -1649,7 +1649,7 @@
  *    P2  Raise the nozzle by Z-park amount, limited to Z_MAX_POS.
  */
 #ifdef LGT_MAC
-	//#define NOZZLE_PARK_FEATURE
+	#define NOZZLE_PARK_FEATURE
 #else
 	//#define NOZZLE_PARK_FEATURE
 #endif // LGT_MAC

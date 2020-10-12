@@ -1172,7 +1172,7 @@
    * point in the file.
    */
 #ifdef LGT_MAC
-    #define POWER_LOSS_RECOVERY
+  #define POWER_LOSS_RECOVERY
 	#define MANUAL_FEEDRATE {50*60, 50*60, 4*60, 120} // Feedrates for manual moves along X, Y, Z, E from panel
 #else
    //#define POWER_LOSS_RECOVERY
@@ -2075,7 +2075,7 @@
  * This feature is required for the default FILAMENT_RUNOUT_SCRIPT.
  */
 #ifdef LGT_MAC
-	//#define ADVANCED_PAUSE_FEATURE
+	#define ADVANCED_PAUSE_FEATURE
 #else
 	//#define ADVANCED_PAUSE_FEATURE
 #endif // LGT_MAC
