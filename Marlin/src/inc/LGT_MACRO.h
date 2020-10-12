@@ -57,7 +57,11 @@
 	#define FILAMENT_RUNOUT_MOVE_Y 260
 	#define FILAMENT_RUNOUT_MOVE_F 50
 #else
-	#define MAC_MODEL       "U30 Pro BLTouch"
+  #ifdef U30_Pro_AutoBed
+		#define MAC_MODEL       "U30 Pro BLTouch"
+	#else
+		#define MAC_MODEL       "U30 Pro"
+	#endif
 	#define MAC_SIZE "220*220*250(mm)"
 	//#define FILAMENT_RUNOUT_MOVE "G1 X10 Y200 F3000"
 	#define FILAMENT_RUNOUT_MOVE_X 10
