@@ -73,7 +73,7 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "Cyberyoryo" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -109,7 +109,7 @@
 				#else //U30_Pro
           #define LGT_ESP
 					#define U30_Pro
-					#define U30_Pro_AutoBed
+					//#define U30_Pro_AutoBed
 				#endif
 		#endif // LGT_MAC
 	#endif // serial_port1
@@ -437,7 +437,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
+#define TEMP_SENSOR_0 5
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -483,7 +483,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 305
+#define HEATER_0_MAXTEMP 285
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -516,9 +516,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  22.20
-    #define DEFAULT_Ki   1.08
-    #define DEFAULT_Kd 114.00
+    #define DEFAULT_Kp  32.52
+    #define DEFAULT_Ki   3.31
+    #define DEFAULT_Kd  79.93
 
     // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
     // MakerGear
@@ -729,7 +729,7 @@
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
-#define E0_DRIVER_TYPE A4988
+#define E0_DRIVER_TYPE DVR8825
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
@@ -786,7 +786,7 @@
  */
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 439.75/*96*/ }
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.2, 80.8, 402.01, 439.75/*96*/ }
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80.4, 400, 439.75/*96*/ }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 395/*96*/ }
 
 /**
  * Default Max Feed Rate (mm/s)
