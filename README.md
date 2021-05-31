@@ -1,3 +1,5 @@
+# REPO ARCHIVED, use this one: https://github.com/mrv96/Marlin2-LK4-Pro
+
 # Marlin 3D Printer Firmware
 
 ![GitHub](https://img.shields.io/github/license/marlinfirmware/marlin.svg)
